@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoGloss - Kilau Mobil Seperti Baru dalam 45 Menit</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-gradient-hero {
+            background: linear-gradient(rgba(14, 165, 233, 0.9), rgba(3, 105, 161, 0.85)), url('https://images.unsplash.com/photo-1601362840469-51e4d8d59085?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-active .accordion-content {
+            max-height: 200px;
+        }
+        .accordion-active i {
+            transform: rotate(180deg);
+        }
+        .sticky-header {
+            transition: all 0.3s ease;
+        }
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            padding: 0.75rem 0;
+        }
+        .header-scrolled .nav-link { color: #1e293b; }
+        .header-scrolled .logo-text { color: #0ea5e9; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800 antialiased">
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/628123456789?text=Halo%20saya%20mau%20cek%20antrean%20cuci%20mobil" 
+       class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all hover:scale-110 active:scale-95"
+       target="_blank">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 w-full z-40 py-5 transition-all sticky-header">
+        <nav class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-sky-500 p-2 rounded-lg">
+                    <i class="fas fa-car-side text-white text-xl"></i>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight logo-text text-white">AUTOGLOSS</span>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#layanan" class="nav-link text-white font-medium hover:text-sky-400 transition-colors">Layanan</a>
+                <a href="#proses" class="nav-link text-white font-medium hover:text-sky-400 transition-colors">Proses</a>
+                <a href="#harga" class="nav-link text-white font-medium hover:text-sky-400 transition-colors">Harga</a>
+                <a href="https://wa.me/628123456789" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 px-6 py-2.5 rounded-full font-bold transition-all transform hover:shadow-lg active:scale-95">
+                    Cek Antrean
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-white text-2xl" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobileMenu" class="fixed inset-0 bg-sky-900 z-50 flex flex-col items-center justify-center space-y-8 text-white text-xl font-bold opacity-0 pointer-events-none transition-opacity duration-300">
+        <button class="absolute top-6 right-6 text-3xl" id="closeMenuBtn">&times;</button>
+        <a href="#layanan" onclick="closeMenu()">Layanan</a>
+        <a href="#proses" onclick="closeMenu()">Proses</a>
+        <a href="#harga" onclick="closeMenu()">Harga</a>
+        <a href="https://wa.me/628123456789" class="bg-yellow-400 text-slate-900 px-8 py-3 rounded-full">Cek Antrean</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 bg-gradient-hero">
+        <div class="container mx-auto px-6 py-12 md:py-24 text-center md:text-left flex flex-col md:flex-row items-center">
+            <div class="md:w-3/5">
+                <span class="inline-block bg-sky-400/20 text-sky-100 border border-sky-300/30 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+                    ✨ Premium Car Wash & Detailing
+                </span>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
+                    Kembalikan Kilau Mobil Kamu Seperti Baru dalam <span class="text-yellow-400">45 Menit.</span>
+                </h1>
+                <p class="text-lg text-sky-50 leading-relaxed mb-10 max-w-2xl">
+                    Kami memberikan perawatan cuci mobil profesional yang detail, bersih hingga ke sela-sela terkecil, dan aman untuk cat mobil kamu. Tanpa antre lama, cukup datang dan biarkan kami yang bekerja.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                    <a href="https://wa.me/628123456789" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-yellow-500/20 transition-all transform hover:-translate-y-1">
+                        Cek Slot Antrean via WA
+                    </a>
+                    <a href="#harga" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-xl font-bold text-lg transition-all">
+                        Lihat Paket Cuci
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Bar -->
+    <section class="bg-white border-b border-gray-100 py-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 items-center">
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="text-sky-500 text-3xl"><i class="fas fa-car"></i></div>
+                    <div class="text-left">
+                        <div class="text-2xl font-bold text-slate-800">1.000+ Mobil</div>
+                        <div class="text-sm text-slate-500">Telah Kami Bersihkan</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center space-x-4 border-y md:border-y-0 md:border-x border-gray-100 py-6 md:py-0">
+                    <div class="text-sky-500 text-3xl"><i class="fas fa-shield-alt"></i></div>
+                    <div class="text-left">
+                        <div class="text-2xl font-bold text-slate-800">Sabun pH Netral</div>
+                        <div class="text-sm text-slate-500">Aman Untuk Semua Jenis Cat</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="text-sky-500 text-3xl"><i class="fas fa-smile-beam"></i></div>
+                    <div class="text-left">
+                        <div class="text-2xl font-bold text-slate-800">Kepuasan 99%</div>
+                        <div class="text-sm text-slate-500">Rating dari Pelanggan Setia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Capek Cuci Mobil Sendiri Tapi Hasilnya Kurang Bersih?</h2>
+            <p class="text-slate-500 mb-16 max-w-2xl mx-auto">Membersihkan mobil kesayangan seringkali menjadi beban jika kamu mengalami hal-hal di bawah ini.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-rose-50 p-8 rounded-2xl border border-rose-100 text-left group hover:bg-rose-100 transition-colors">
+                    <div class="w-12 h-12 bg-rose-500 text-white rounded-lg flex items-center justify-center mb-6 text-xl">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Waktu Terbuang</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">Harus menghabiskan berjam-jam di hari libur hanya untuk mencuci mobil.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-rose-50 p-8 rounded-2xl border border-rose-100 text-left group hover:bg-rose-100 transition-colors">
+                    <div class="w-12 h-12 bg-rose-500 text-white rounded-lg flex items-center justify-center mb-6 text-xl">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Hasil Tidak Maksimal</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">Masih ada noda air atau jamur yang tertinggal karena teknik cuci yang salah.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-rose-50 p-8 rounded-2xl border border-rose-100 text-left group hover:bg-rose-100 transition-colors">
+                    <div class="w-12 h-12 bg-rose-500 text-white rounded-lg flex items-center justify-center mb-6 text-xl">
+                        <i class="fas fa-car-crash"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Takut Cat Tergores</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">Khawatir menggunakan kain atau sabun yang salah sehingga muncul baret halus (swirl marks).</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-rose-50 p-8 rounded-2xl border border-rose-100 text-left group hover:bg-rose-100 transition-colors">
+                    <div class="w-12 h-12 bg-rose-500 text-white rounded-lg flex items-center justify-center mb-6 text-xl">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Bagian Dalam Bau</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">Sulit membersihkan area bawah jok dan sela-sela dashboard sendirian.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="layanan" class="py-24 bg-sky-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
+                        Perawatan Profesional Agar Mobil Kamu Selalu Siap Menemani Perjalanan.
+                    </h2>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        Kami memahami bahwa mobil bukan sekadar alat transportasi, tapi juga cerminan diri kamu. Kami hadir dengan sistem cuci yang aman dan menyeluruh.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-white p-3 rounded-full shadow-sm text-sky-500 flex-shrink-0">
+                                <i class="fas fa-snowflake"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Snow Wash Premium</h4>
+                                <p class="text-sm text-slate-600">Busa melimpah yang mengangkat kotoran tanpa perlu gesekan kasar yang merusak cat.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-white p-3 rounded-full shadow-sm text-sky-500 flex-shrink-0">
+                                <i class="fas fa-broom"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Interior Vacuum & Cleaning</h4>
+                                <p class="text-sm text-slate-600">Debu dan kotoran di dalam kabin kami bersihkan hingga tuntas agar kamu nyaman berkendara.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-white p-3 rounded-full shadow-sm text-sky-500 flex-shrink-0">
+                                <i class="fas fa-circle-notch"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Semir Ban Tahan Lama</h4>
+                                <p class="text-sm text-slate-600">Memberikan kesan elegan dan melindungi ban kamu agar tidak mudah retak.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-white p-3 rounded-full shadow-sm text-sky-500 flex-shrink-0">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Teknik Pengeringan Khusus</h4>
+                                <p class="text-sm text-slate-600">Menggunakan kain microfiber lembut untuk memastikan tidak ada bercak air yang tertinggal.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute inset-0 bg-sky-500 rounded-3xl transform rotate-3 scale-105 opacity-10"></div>
+                    <img src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&q=80&w=800" alt="Car Washing Process" class="relative rounded-3xl shadow-2xl z-10 w-full h-auto object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Result Gallery -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-12">Hasil Kinclong yang Bicara.</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="group overflow-hidden rounded-2xl relative h-64 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1552933529-e359b2477252?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Body Mengkilap">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white text-left">
+                        <h4 class="font-bold">Body Mengkilap</h4>
+                        <p class="text-xs text-gray-300">Efek bersih maksimal yang memantulkan cahaya.</p>
+                    </div>
+                </div>
+                <div class="group overflow-hidden rounded-2xl relative h-64 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Interior Segar">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white text-left">
+                        <h4 class="font-bold">Interior Segar</h4>
+                        <p class="text-xs text-gray-300">Kabin bersih, bebas debu, dan wangi.</p>
+                    </div>
+                </div>
+                <div class="group overflow-hidden rounded-2xl relative h-64 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1551522435-a13afa10f103?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Mesin Bersih">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white text-left">
+                        <h4 class="font-bold">Mesin & Kolong</h4>
+                        <p class="text-xs text-gray-300">Bagian tersembunyi pun tak luput dari perhatian.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Process -->
+    <section id="proses" class="py-24 bg-slate-900 text-white overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Proses Singkat, Hasil Hebat.</h2>
+                <p class="text-slate-400">Hanya perlu 4 langkah mudah untuk mengembalikan kilau mobilmu.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="text-center relative z-10 group">
+                    <div class="w-20 h-20 bg-sky-500 rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6 border-4 border-slate-800 group-hover:scale-110 transition-transform">1</div>
+                    <h4 class="text-xl font-bold mb-2">Registrasi</h4>
+                    <p class="text-slate-400 text-sm">Serahkan kunci dan sampaikan jika ada permintaan khusus.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="text-center relative z-10 group">
+                    <div class="w-20 h-20 bg-sky-500 rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6 border-4 border-slate-800 group-hover:scale-110 transition-transform">2</div>
+                    <h4 class="text-xl font-bold mb-2">Pencucian</h4>
+                    <p class="text-slate-400 text-sm">Tim kami bekerja secara simultan untuk kecepatan dan ketelitian.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="text-center relative z-10 group">
+                    <div class="w-20 h-20 bg-sky-500 rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6 border-4 border-slate-800 group-hover:scale-110 transition-transform">3</div>
+                    <h4 class="text-xl font-bold mb-2">Pengecekan (QC)</h4>
+                    <p class="text-slate-400 text-sm">Kami memastikan setiap sudut mobil sudah bersih sempurna.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="text-center relative z-10 group">
+                    <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6 border-4 border-slate-800 group-hover:scale-110 transition-transform">4</div>
+                    <h4 class="text-xl font-bold mb-2">Siap Meluncur</h4>
+                    <p class="text-slate-400 text-sm">Mobil kamu kembali bersih, wangi, dan siap digunakan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-16 text-center">Mengapa Mencuci Mobil di Tempat Kami?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="flex items-start space-x-6">
+                    <div class="bg-sky-100 p-4 rounded-xl text-sky-600"><i class="fas fa-tint text-2xl"></i></div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-slate-900">Air Filtrasi</h4>
+                        <p class="text-slate-600">Kami menggunakan air yang sudah disaring agar tidak menimbulkan kerak atau jamur pada body mobil.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-6">
+                    <div class="bg-sky-100 p-4 rounded-xl text-sky-600"><i class="fas fa-vial text-2xl"></i></div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-slate-900">Sabun pH Netral</h4>
+                        <p class="text-slate-600">Bahan pembersih yang aman untuk semua jenis cat mobil, tidak membuat cat kusam.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-6">
+                    <div class="bg-sky-100 p-4 rounded-xl text-sky-600"><i class="fas fa-coffee text-2xl"></i></div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-slate-900">Ruang Tunggu Nyaman</h4>
+                        <p class="text-slate-600">Tersedia Wi-Fi dan kopi gratis selagi kamu menunggu mobil dikerjakan.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-6">
+                    <div class="bg-sky-100 p-4 rounded-xl text-sky-600"><i class="fas fa-undo-alt text-2xl"></i></div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-slate-900">Garansi Cuci Ulang</h4>
+                        <p class="text-slate-600">Jika hasil cuci kurang bersih, kami cuci ulang saat itu juga tanpa biaya tambahan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="py-24 bg-sky-50">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="bg-white p-12 rounded-3xl shadow-xl relative text-center">
+                <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-sky-500 text-white rounded-full flex items-center justify-center text-xl shadow-lg">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="text-xl md:text-2xl italic text-slate-700 leading-relaxed mb-8">
+                    "Pelayanannya cepat dan hasilnya sangat detail. Bagian interior yang biasanya sulit dibersihkan jadi bersih banget. Yang paling penting, cat mobil saya tetap aman dan mengkilap!"
+                </p>
+                <div class="flex flex-col items-center">
+                    <div class="font-bold text-slate-900 text-lg">Rizky</div>
+                    <div class="text-sky-500 text-sm font-semibold uppercase tracking-widest">Pengguna City Car</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-12 text-center">Hal yang Sering Ditanyakan</h2>
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="accordion-item border border-gray-200 rounded-2xl">
+                    <button class="w-full flex justify-between items-center p-6 text-left font-bold text-slate-900 transition-colors" onclick="toggleAccordion(this)">
+                        <span>Apakah bisa pesan tempat (booking) dulu agar tidak antre?</span>
+                        <i class="fas fa-chevron-down text-sky-500 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content bg-gray-50">
+                        <p class="p-6 text-slate-600">Tentu! Kamu bisa chat WhatsApp kami untuk cek kondisi antrean atau booking jam kedatangan agar lebih nyaman.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="accordion-item border border-gray-200 rounded-2xl">
+                    <button class="w-full flex justify-between items-center p-6 text-left font-bold text-slate-900 transition-colors" onclick="toggleAccordion(this)">
+                        <span>Sabun apa yang digunakan? Apakah aman untuk coating?</span>
+                        <i class="fas fa-chevron-down text-sky-500 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content bg-gray-50">
+                        <p class="p-6 text-slate-600">Kami menggunakan sabun khusus ber-pH netral yang sangat aman untuk mobil yang sudah di-coating maupun cat standar.</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="accordion-item border border-gray-200 rounded-2xl">
+                    <button class="w-full flex justify-between items-center p-6 text-left font-bold text-slate-900 transition-colors" onclick="toggleAccordion(this)">
+                        <span>Berapa lama waktu cucinya?</span>
+                        <i class="fas fa-chevron-down text-sky-500 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content bg-gray-50">
+                        <p class="p-6 text-slate-600">Untuk paket cuci standar biasanya memakan waktu 30-45 menit tergantung kondisi keramaian.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="harga" class="py-24 bg-sky-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Pilih Paket Perawatan Terbaik</h2>
+            <p class="text-slate-500 mb-16">Promo Minggu Ini: Dapatkan diskon 20% untuk kunjungan pertama kamu!</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <!-- Paket 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-xl border-2 border-transparent">
+                    <h3 class="text-xl font-bold mb-2">Paket Reguler</h3>
+                    <div class="text-3xl font-extrabold text-sky-600 mb-6">Rp 50.000</div>
+                    <ul class="text-left space-y-4 mb-8 text-slate-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Cuci Body</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Vacuum Ringan</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Semir Ban</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Interior Ringan</li>
+                    </ul>
+                    <a href="https://wa.me/628123456789" class="block w-full py-4 bg-sky-100 text-sky-600 font-bold rounded-xl hover:bg-sky-200 transition-colors">Pilih Paket</a>
+                </div>
+                <!-- Paket 2 (Best Seller) -->
+                <div class="bg-white p-8 rounded-3xl shadow-2xl border-2 border-sky-500 relative transform md:scale-105 z-10">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-sky-500 text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">Best Seller</div>
+                    <h3 class="text-xl font-bold mb-2">Paket Shine</h3>
+                    <div class="text-3xl font-extrabold text-sky-600 mb-6">Rp 85.000</div>
+                    <ul class="text-left space-y-4 mb-8 text-slate-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Cuci Body & Kolong</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Vacuum Interior Detail</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Semir Ban Tahan Lama</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Pembersihan Dashboard</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Snow Wash Premium</li>
+                    </ul>
+                    <a href="https://wa.me/628123456789" class="block w-full py-4 bg-sky-500 text-white font-bold rounded-xl hover:bg-sky-600 shadow-lg shadow-sky-500/30 transition-all">Pilih Paket</a>
+                </div>
+                <!-- Paket 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-xl border-2 border-transparent">
+                    <h3 class="text-xl font-bold mb-2">Paket Ultimate</h3>
+                    <div class="text-3xl font-extrabold text-sky-600 mb-6">Rp 150.000</div>
+                    <ul class="text-left space-y-4 mb-8 text-slate-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Semua Fitur Paket Shine</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Poles Body Manual (Wax)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Pembersihan Jamur Kaca</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Proteksi Efek Daun Talas</li>
+                    </ul>
+                    <a href="https://wa.me/628123456789" class="block w-full py-4 bg-sky-100 text-sky-600 font-bold rounded-xl hover:bg-sky-200 transition-colors">Pilih Paket</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="bg-sky-500 p-2 rounded-lg">
+                            <i class="fas fa-car-side text-white text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-extrabold tracking-tight text-white">AUTOGLOSS</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">
+                        Penyedia jasa pencucian mobil profesional dengan teknologi filtrasi air terbaru dan sabun berkualitas tinggi untuk perlindungan maksimal kendaraan Anda.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Jam Operasional</h4>
+                    <ul class="text-slate-400 space-y-2">
+                        <li class="flex justify-between"><span>Senin - Jumat</span> <span>08.00 - 20.00</span></li>
+                        <li class="flex justify-between"><span>Sabtu - Minggu</span> <span>07.00 - 21.00</span></li>
+                        <li class="pt-4 text-sky-400 font-bold">Cuci 5x Gratis 1x!</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Hubungi Kami</h4>
+                    <ul class="text-slate-400 space-y-4">
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-map-marker-alt text-sky-500"></i>
+                            <span>Jl. Raya Kinclong No. 123, Jakarta Selatan</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fab fa-whatsapp text-sky-500"></i>
+                            <span>0812-3456-7890</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+                <p>&copy; 2024 AutoGloss Premium Car Wash. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Instagram</a>
+                    <a href="#" class="hover:text-white">Facebook</a>
+                    <a href="#" class="hover:text-white">Google Maps</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Sticky Header & Navigation Highlight
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+
+        mobileMenuBtn.onclick = () => {
+            mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+            mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+        };
+
+        function closeMenu() {
+            mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+            mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+
+        closeMenuBtn.onclick = closeMenu;
+
+        // Accordion FAQ
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('accordion-active');
+            
+            // Close all items
+            document.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('accordion-active');
+            });
+            
+            // Toggle active state
+            if (!isActive) {
+                item.classList.add('accordion-active');
+            }
+        }
+
+        // Smooth Scroll for Internal Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
